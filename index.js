@@ -13,6 +13,19 @@ const createListFromObject = (object) => {
   return listed;
 };
 
+const createRandomFreelancersObject = (names, occupations) => {
+  const getRandomIndex = (arr) => {
+    return Math.floor(Math.random() * arr.length);
+  };
+  const randomPrice = Math.floor(Math.random() * (100 - 15 + 1) + 15);
+  const randomObject = {
+    name: `${names[getRandomIndex(names)]}`,
+    price: randomPrice,
+    occupation: `${occupations[getRandomIndex(occupations)]}`,
+  };
+  return randomObject;
+};
+
 const spanCount = document.querySelector("#spanCount");
 const averageRate = document.querySelector("#averageRate");
 const listingSection = document.querySelector("#listingSection");
@@ -28,7 +41,7 @@ const names = [
   "Prof. Goose",
 ];
 
-const occupations = ["gardener", "programmer", "teacher", "gardner"];
+const occupations = ["gardener", "programmer", "teacher", "trainer"];
 
 const freelancers = [
   { name: "Dr. Slice", price: 25, occupation: "gardener" },
@@ -44,3 +57,7 @@ freelancers.forEach((value) => {
 averageRate.innerHTML = sum / freelancers.length;
 
 listingSection.innerHTML = createListFromObject(freelancers);
+
+setInterval(() => {
+  freelancers.push(createRandomFreelancersObject(names, occupations));
+}, 1000);
