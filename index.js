@@ -4,7 +4,7 @@ const createListFromObject = (object) => {
       return `
       <section>
       <p>${value.name}</p>
-      <p>Hourly Rate: ${value.price}</p>
+      <p>Hourly Rate: $${value.price.toFixed(2)}</p>
       <p>Occupation: ${value.occupation}</p>
       </section>
     `;
@@ -24,6 +24,18 @@ const createRandomFreelancersObject = (names, occupations) => {
     occupation: `${occupations[getRandomIndex(occupations)]}`,
   };
   return randomObject;
+};
+
+const render = () => {
+  spanCount.innerHTML = freelancers.length;
+
+  let sum = 0;
+  freelancers.forEach((value) => {
+    sum += value.price;
+  });
+  averageRate.innerHTML = (sum / freelancers.length).toFixed(2);
+
+  listingSection.innerHTML = createListFromObject(freelancers);
 };
 
 const spanCount = document.querySelector("#spanCount");
@@ -48,16 +60,12 @@ const freelancers = [
   { name: "Dr. Pressure", price: 51, occupation: "programmer" },
 ];
 
-spanCount.innerHTML = freelancers.length;
+render();
 
-let sum = 0;
-freelancers.forEach((value) => {
-  sum += value.price;
-});
-averageRate.innerHTML = sum / freelancers.length;
-
-listingSection.innerHTML = createListFromObject(freelancers);
-
-setInterval(() => {
+const interval = setInterval(() => {
   freelancers.push(createRandomFreelancersObject(names, occupations));
-}, 1000);
+  render();
+  if (freelancers.length === 15) {
+    clearInterval(interval);
+  }
+}, 2500);
