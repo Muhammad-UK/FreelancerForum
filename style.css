@@ -1,0 +1,14 @@
+section {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0.5rem;
+  border-style: solid;
+  border-radius: 10px;
+  width: 75%;
+  margin: 1.2rem;
+} /*I don't remember why the listingSection has that odd space to the right and I don't know how to fix it*/
+p {
+  display: flex;
+  justify-content: center;
+}
